@@ -1,6 +1,6 @@
 # TiFServer
 TiFServer - This is Fanfic 
-
+alfa-version  This is Fanfic server
 
 ## URL
 1. admin/ -admin panel
