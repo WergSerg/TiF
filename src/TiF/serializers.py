@@ -8,7 +8,7 @@ from .models import UserInfo, Message, Text, Comment, Choice, Mpaa, Foundation, 
 class FoundationSerialize(serializers.ModelSerializer):
     class Meta:
         model = Foundation
-        fields = ['name']
+        fields = ['id','name']
 
 
 class TextDepNestedSerializer(serializers.ModelSerializer):
@@ -69,10 +69,11 @@ class FoundationReverseSerialize(serializers.ModelSerializer):
 
     class Meta:
         model = Foundation
-        fields = ['name', 'text_deps']
+        fields = ['id','name', 'text_deps']
 
     def get_text_deps(self, obj):
         return obj.text_deps.count()
+
 
 
 class CategoryReverseSerialize(serializers.ModelSerializer):
@@ -87,4 +88,12 @@ class CreateTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
         fields = '__all__'
+
+
+class CategorySerialize(serializers.ModelSerializer):
+    categorys = FoundationSerialize(many=True)
+
+    class Meta:
+        model = Category
+        fields = ['id','name', 'categorys']
 

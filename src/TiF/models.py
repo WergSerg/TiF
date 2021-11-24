@@ -1,8 +1,6 @@
 from django.db import models
 
 
-
-
 class UserInfo(models.Model):
     user_id=models.ForeignKey('auth.User', related_name='UserInfo', on_delete=models.CASCADE)
     username = models.CharField(max_length=128)
@@ -97,3 +95,4 @@ class Hashtag(models.Model):
 
     def __str__(self):
         return self.tag_name
+

@@ -20,7 +20,9 @@ Alfa-version  This is Fanfic server
 1. admin/ -admin panel
 1. api-oauth/ - authorization
 1. Text/ - list of departments
-1. category/ - router link for employee data
+1. category-tree/ - router link for employee data
+1. get-category/ - get категорий для создания текста
+
 
 
 
