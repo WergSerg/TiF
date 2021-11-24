@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
-from .models import User, Message, Text,Comment, Choice,Mpaa,Foundation,TextDep,Hashtag, Category
+from .models import UserInfo, Message, Text, Comment, Choice, Mpaa, Foundation, TextDep, Hashtag, Category
+
 
 
 class FoundationSerialize(serializers.ModelSerializer):
@@ -8,37 +10,46 @@ class FoundationSerialize(serializers.ModelSerializer):
         model = Foundation
         fields = ['name']
 
+
 class TextDepNestedSerializer(serializers.ModelSerializer):
-    found=FoundationSerialize()
+    found = FoundationSerialize()
+
     class Meta:
         model = TextDep
         fields = ['found']
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hashtag
         fields = ['tag_name']
 
+
 class UserSerializerName(serializers.ModelSerializer):
     class Meta:
-        model=User
+        model = User
         fields = ["username"]
+
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = ["name"]
 
+
 class MpaaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mpaa
-        fields = ["name","description"]
+        fields = ["name", "description"]
+
 
 class CommentSerializer(serializers.ModelSerializer):
-    author=UserSerializerName()
+    author = UserSerializerName()
+
     class Meta:
         model = Comment
-        fields = ["timestamp", "author","text"]
+        fields = ["timestamp", "author", "text"]
+
 
 class TextNestedSerilizer(serializers.ModelSerializer):
     tagname = TagSerializer(many=True)
@@ -58,19 +69,22 @@ class FoundationReverseSerialize(serializers.ModelSerializer):
 
     class Meta:
         model = Foundation
-        fields = ['name','text_deps']
+        fields = ['name', 'text_deps']
 
     def get_text_deps(self, obj):
         return obj.text_deps.count()
+
 
 class CategoryReverseSerialize(serializers.ModelSerializer):
     categorys = FoundationReverseSerialize(many=True)
 
     class Meta:
         model = Category
-        fields = ['name','categorys']
+        fields = ['name', 'categorys']
+
 
 class CreateTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
-        fields ='__all__'
+        fields = '__all__'
+
