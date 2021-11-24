@@ -2,7 +2,9 @@ from django.db import models
 
 
 
-class User(models.Model):
+
+class UserInfo(models.Model):
+    user_id=models.ForeignKey('auth.User', related_name='UserInfo', on_delete=models.CASCADE)
     username = models.CharField(max_length=128)
     reg_date = models.DateTimeField(auto_now_add=True)
     ban = models.BooleanField()
@@ -11,13 +13,14 @@ class User(models.Model):
     contact = models.CharField(max_length=256, null=True)
     about = models.CharField(max_length=512, null=True)
 
+
     def __str__(self):
         return self.username
 
 
 class Message(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Mess')
-    message_to = models.ForeignKey(User, on_delete=models.PROTECT)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='Mess')
+    message_to = models.ForeignKey('auth.User', on_delete=models.PROTECT)
     txt = models.TextField(max_length=1000)
     timeOfCreate = models.DateTimeField(auto_now_add=True)
     timeOfUpadate = models.DateTimeField(auto_now_add=True)
@@ -57,7 +60,7 @@ class Choice(models.Model):
 
 
 class Text(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='owner')
     status = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='status')
     name = models.CharField(max_length=300)
     mpaa = models.ForeignKey(Mpaa, on_delete=models.PROTECT, related_name='mpaa')
@@ -76,7 +79,7 @@ class Text(models.Model):
 class Comment(models.Model):
     text_id = models.ForeignKey(Text, on_delete=models.CASCADE, related_name='comment')
     timestamp = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='comment')
     text = models.TextField(max_length=300)
 
     def __str__(self):

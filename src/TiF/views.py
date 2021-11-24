@@ -1,6 +1,6 @@
 from rest_framework import viewsets, pagination
 
-from .models import User, Message, Text, Comment, Category, Foundation
+from .models import  Message, Text, Comment, Category, Foundation
 from .serializers import TextNestedSerilizer, CategoryReverseSerialize, CreateTextSerializer
 
 
