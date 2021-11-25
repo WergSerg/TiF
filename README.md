@@ -38,5 +38,5 @@ Alfa-version  This is Fanfic server
 
 # INFO
 обязательный поле в headers :  
-    1. Authorization - Token <token>
+    1. Authorization - Token < token >
 
