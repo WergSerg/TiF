@@ -1,71 +1,56 @@
-from rest_framework import viewsets, pagination
+from rest_framework import viewsets, pagination,status
+from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 
-
-from .models import Message, Text, Comment, Category, Foundation
+from .models import Message, Text, Comment, Category, Foundation,User
 from .serializers import TextNestedSerilizer, \
     CategoryReverseSerialize, \
     CreateTextSerializer, \
-    CategorySerialize
-
-# Подключаем статус
-from rest_framework import status
-# Подключаем компонент для ответа
-from rest_framework.response import Response
-# Подключаем компонент для создания данных
-from rest_framework.generics import CreateAPIView
-# Подключаем компонент для прав доступа
-from rest_framework.permissions import AllowAny
-# Подключаем модель User
-from .models import User
-# Подключаем UserRegistrSerializer
-from .serializers import UserRegistrSerializer
+    CategorySerialize, \
+    UserRegistrSerializer
 
 
-# Создаём класс RegistrUserView
+
+
+
 class RegistrUserView(CreateAPIView):
-    # Добавляем в queryset
     queryset = User.objects.all()
-    # Добавляем serializer UserRegistrSerializer
     serializer_class = UserRegistrSerializer
-    # Добавляем права доступа
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
-    # Создаём метод для создания нового пользователя
+
     def post(self, request, *args, **kwargs):
-        # Добавляем UserRegistrSerializer
         serializer = UserRegistrSerializer(data=request.data)
-        # Создаём список data
         data = {}
-        # Проверка данных на валидность
         if serializer.is_valid():
-            # Сохраняем нового пользователя
             serializer.save()
-            # Добавляем в список значение ответа True
             data['response'] = True
-            # Возвращаем что всё в порядке
             return Response(data, status=status.HTTP_200_OK)
-        else:  # Иначе
-            # Присваиваем data ошибку
+        else:
             data = serializer.errors
-            # Возвращаем ошибку
             return Response(data)
 
 
 class TextModeViewSet(viewsets.ModelViewSet):
     queryset = Text.objects.all()
     serializer_class = TextNestedSerilizer
+    permission_classes = [IsAuthenticated]
 
 
 class CategoryTree(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategoryReverseSerialize
+    permission_classes = [IsAuthenticated]
 
 
 class CreateText(viewsets.ModelViewSet):
     queryset = Text.objects.all()
     serializer_class = CreateTextSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class FoundationTree(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerialize
+    permission_classes = [IsAdminUser]

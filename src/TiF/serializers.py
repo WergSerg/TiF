@@ -1,11 +1,7 @@
 from rest_framework import serializers
 
-from .models import UserInfo, Message, Text, Comment, Choice, Mpaa, Foundation, TextDep, Hashtag, Category
+from .models import User, UserInfo, Message, Text, Comment, Choice, Mpaa, Foundation, TextDep, Hashtag, Category
 
-# Подключаем класс для работы со сериалайзер
-from rest_framework import serializers
-# Подключаем модель user
-from .models import User
 
 
 class UserRegistrSerializer(serializers.ModelSerializer):
