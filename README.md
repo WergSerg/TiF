@@ -17,11 +17,20 @@ Alfa-version  This is Fanfic server
 
 
 ## URL
-1. admin/ -admin panel
-1. api-oauth/ - authorization
-1. Text/ - list of departments
-1. category-tree/ - router link for employee data
-1. get-category/ - get категорий для создания текста
+1. admin/ -admin panel.
+1. api-oauth/ - authorization.
+1. Text/ - list of departments.
+1. category-tree/ - router link for employee data.
+1. get-category/ - get категорий для создания текста.
+1. registration/ регистрация нового пользователя.
+    обязательный поля в теле :
+    1. email - формат email
+    1. username - любой никнейм
+    1. password - пароль(минимум 8 символов)
+    1. password2 - повтор пароля
+1. /auth/token/login - получение токина для авторизации зарегестрированного пользователя.
+    1. email -  email пользователя
+    1. password - пароль пользователя
 
 
 
