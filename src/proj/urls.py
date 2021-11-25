@@ -30,6 +30,7 @@ router.register(r'createText',views.CreateText)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/',include('djoser.urls')),
+    path('registration/', views.RegistrUserView.as_view(), name='registr'),
     path('auth/',include('djoser.urls.authtoken')),
     path('auth/',include('djoser.urls.jwt')),
 ]+router.urls
