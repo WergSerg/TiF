@@ -1,9 +1,9 @@
-from rest_framework import viewsets, pagination,status
+from rest_framework import viewsets,  status
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.permissions import  IsAdminUser, IsAuthenticated
 
-from .models import Message, Text, Comment, Category, Foundation,User
+from .models import  Text,  Category,  User
 from .serializers import TextNestedSerilizer, \
     CategoryReverseSerialize, \
     CreateTextSerializer, \

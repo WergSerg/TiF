@@ -25,18 +25,16 @@ class MyUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.AutoField(primary_key=True, unique=True)  # Идентификатор
-    username = models.CharField(max_length=50, unique=True)  # Логин
-    email = models.EmailField(max_length=100, unique=True)  # Email
-    is_active = models.BooleanField(default=True)  # Статус активации
-    is_staff = models.BooleanField(default=False)  # Статус админа
+    id = models.AutoField(primary_key=True, unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'  # Идентификатор для обращения
-    REQUIRED_FIELDS = ['username']  # Список имён полей для Superuser
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    objects = MyUserManager()
 
-    objects = MyUserManager()  # Добавляем методы класса MyUserManager
-
-    # Метод для отображения в админ панели
     def __str__(self):
         return self.email
 
